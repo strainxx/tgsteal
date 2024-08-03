@@ -1,0 +1,17 @@
+{
+  "name": "tgsteal",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@loskir/styled-qr-code-node": "^1.5.1",
+    "dotenv": "^16.4.5",
+    "request": "^2.88.2",
+    "telegram": "^2.19.20"
+  }
+}

